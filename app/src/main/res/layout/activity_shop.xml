@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_home">
+
+    <!-- Coin bar -->
+    <FrameLayout
+        android:id="@+id/coinBarContainer"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/bg_coin_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvCoinCount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:fontFamily="@font/cherry_bomb_regular"
+            android:textColor="#5A3200"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="0" />
+    </FrameLayout>
+
+    <!-- Stats row -->
+    <LinearLayout
+        android:id="@+id/statsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coinBarContainer">
+
+        <TextView
+            android:id="@+id/tvCoinsPerClick"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_stat_pill"
+            android:gravity="center"
+            android:fontFamily="@font/cherry_bomb_regular"
+            android:textColor="#2ECC71"
+            android:textSize="13sp"
+            android:text="10 /click" />
+
+        <TextView
+            android:id="@+id/tvCoinsPerSecond"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_stat_pill"
+            android:gravity="center"
+            android:fontFamily="@font/cherry_bomb_regular"
+            android:textColor="#2ECC71"
+            android:textSize="13sp"
+            android:text="0 /second" />
+    </LinearLayout>
+
+    <!-- Shop card -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shopCard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_card_language"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statsRow">
+
+        <!-- Header -->
+        <LinearLayout
+            android:id="@+id/shopHeader"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_contacts_header"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_home"
+                android:tint="#FFFFFF" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/cherry_bomb_regular"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:text="SHOP" />
+
+            <TextView
+                android:id="@+id/btnClose"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_close_btn"
+                android:gravity="center"
+                android:fontFamily="@font/cherry_bomb_regular"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:text="X" />
+        </LinearLayout>
+
+        <!-- Upgrades list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvShop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shopHeader" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1034561123552",
+    "project_id": "st239-pony-maker",
+    "storage_bucket": "st239-pony-maker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034561123552:android:2104bbded0a4f249e24c85",
+        "android_client_info": {
+          "package_name": "com.ponymaker.avatarcreator.maker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsrRGi0i19g7sGmhlVf53rqKy4BdZh3y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
