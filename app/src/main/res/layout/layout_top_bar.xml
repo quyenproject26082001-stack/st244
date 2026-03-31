@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="154dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <!-- Coin bar -->
+    <FrameLayout
+        android:id="@+id/coinBarContainer"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/bg_coin_progress"
+        android:foreground="@drawable/bg_coin_progress_stroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/progressCoins"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFDD33" />
+
+        <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+            android:id="@+id/tvCoinCount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/cherry_bomb_regular"
+            android:gravity="center"
+            android:text="0 / 1000"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:outerStrokeColor="#804D06"
+            app:outerStrokeWidth="3dp" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/coinIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="-20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_coin_progress"
+        app:layout_constraintBottom_toBottomOf="@id/coinBarContainer"
+        app:layout_constraintStart_toStartOf="@id/coinBarContainer"
+        app:layout_constraintTop_toTopOf="@id/coinBarContainer" />
+
+    <!-- Stats row -->
+    <LinearLayout
+        android:id="@+id/statsRow"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coinBarContainer">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_stat_pill">
+
+            <ImageView
+                android:id="@+id/icIncreaseClick"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="-5dp"
+                android:layout_marginTop="-5dp"
+                android:src="@drawable/ic_increase"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCoinsPerClick"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"
+                android:fontFamily="@font/cherry_bomb_regular"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="#2ECC71"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgCoinPerClick"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgCoinPerClick"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="2dp"
+                android:src="@drawable/ic_coin_progress"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvCoinsPerClickSP"
+                app:layout_constraintStart_toEndOf="@id/tvCoinsPerClick"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+                android:id="@+id/tvCoinsPerClickSP"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="6dp"
+                android:fontFamily="@font/cherry_bomb_regular"
+                android:gravity="center"
+                android:text="/click"
+                android:textColor="#804D06"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgCoinPerClick"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="wrap_content" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_stat_pill">
+
+            <ImageView
+                android:id="@+id/icIncreaseSecond"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="-5dp"
+                android:layout_marginTop="-5dp"
+                android:src="@drawable/ic_increase"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCoinsPerSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="6dp"
+                android:fontFamily="@font/cherry_bomb_regular"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#2ECC71"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgCoinPerSecond"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgCoinPerSecond"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="2dp"
+                android:src="@drawable/ic_coin_progress"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvCoinsPerSecondSP"
+                app:layout_constraintStart_toEndOf="@id/tvCoinsPerSecond"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+                android:id="@+id/tvCoinsPerSecondSP"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="6dp"
+                android:fontFamily="@font/cherry_bomb_regular"
+                android:gravity="center"
+                android:text="/second"
+                android:textColor="#804D06"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgCoinPerSecond"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutClickBoostClickActive"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/glCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statsRow">
+
+        <FrameLayout
+            android:id="@+id/progressBoostClickContainer"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icX2Click"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/progressBoostClick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_loading" />
+
+            <View
+                android:id="@+id/whiteOverlayClick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/icX2Click"
+            android:layout_width="26dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/ic_x2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutClickBoostActiveSecond"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/glCenter"
+        app:layout_constraintTop_toBottomOf="@id/statsRow">
+
+        <FrameLayout
+            android:id="@+id/progressBoostSecondContainer"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icX2Second"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/progressBoostSecond"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_loading" />
+
+            <View
+                android:id="@+id/whiteOverlaySecond"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/icX2Second"
+            android:layout_width="26dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="28dp"
+            android:background="@drawable/ic_x2"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

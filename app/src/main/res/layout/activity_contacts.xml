@@ -2,73 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home">
+    android:background="@drawable/bg_home"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-    <!-- Coin bar -->
-    <FrameLayout
-        android:id="@+id/coinBarContainer"
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/layout_top_bar"
         android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/bg_coin_progress"
+        android:layout_height="154dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvCoinCount"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:fontFamily="@font/cherry_bomb_regular"
-            android:textColor="#5A3200"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="0" />
-    </FrameLayout>
-
-    <!-- Stats row -->
-    <LinearLayout
-        android:id="@+id/statsRow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coinBarContainer">
-
-        <TextView
-            android:id="@+id/tvCoinsPerClick"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_stat_pill"
-            android:gravity="center"
-            android:fontFamily="@font/cherry_bomb_regular"
-            android:textColor="#2ECC71"
-            android:textSize="13sp"
-            android:text="10 /click" />
-
-        <TextView
-            android:id="@+id/tvCoinsPerSecond"
-            android:layout_width="0dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_stat_pill"
-            android:gravity="center"
-            android:fontFamily="@font/cherry_bomb_regular"
-            android:textColor="#2ECC71"
-            android:textSize="13sp"
-            android:text="0 /second" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Contacts card -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statsRow">
+        app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <!-- Header -->
         <LinearLayout

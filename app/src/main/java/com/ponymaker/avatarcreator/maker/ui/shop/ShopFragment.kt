@@ -9,7 +9,8 @@ import com.ponymaker.avatarcreator.maker.core.base.BaseFragment
 import com.ponymaker.avatarcreator.maker.core.extensions.tap
 import com.ponymaker.avatarcreator.maker.databinding.ActivityShopBinding
 import com.ponymaker.avatarcreator.maker.ui.home.HomeViewModel
-import com.ponymaker.avatarcreator.maker.ui.home.formatCoins
+import com.ponymaker.avatarcreator.maker.ui.home.initTopBar
+import com.ponymaker.avatarcreator.maker.ui.home.observeTopBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -27,6 +28,7 @@ class ShopFragment : BaseFragment<ActivityShopBinding>() {
         }
         binding.rvShop.layoutManager = LinearLayoutManager(requireContext())
         binding.rvShop.adapter = adapter
+        initTopBar(binding.topBar)
     }
 
     override fun viewListener() {
@@ -34,23 +36,9 @@ class ShopFragment : BaseFragment<ActivityShopBinding>() {
     }
 
     override fun dataObservable() {
+        observeTopBar(binding.topBar, viewModel)
         viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                viewModel.upgrades.collectLatest { adapter.submitList(it) }
-            }
-            launch {
-                viewModel.coins.collectLatest { binding.tvCoinCount.text = formatCoins(it) }
-            }
-            launch {
-                viewModel.coinsPerClick.collectLatest {
-                    binding.tvCoinsPerClick.text = "${formatCoins(it)} /click"
-                }
-            }
-            launch {
-                viewModel.coinsPerSecond.collectLatest {
-                    binding.tvCoinsPerSecond.text = "${formatCoins(it)} /second"
-                }
-            }
+            viewModel.upgrades.collectLatest { adapter.submitList(it) }
         }
     }
 }

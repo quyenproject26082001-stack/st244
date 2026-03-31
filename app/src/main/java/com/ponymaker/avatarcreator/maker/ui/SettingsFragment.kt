@@ -2,6 +2,7 @@ package com.ponymaker.avatarcreator.maker.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.ponymaker.avatarcreator.maker.R
 import com.ponymaker.avatarcreator.maker.core.base.BaseFragment
 import com.ponymaker.avatarcreator.maker.core.extensions.gone
@@ -14,12 +15,16 @@ import com.ponymaker.avatarcreator.maker.core.extensions.visible
 import com.ponymaker.avatarcreator.maker.core.helper.MusicHelper
 import com.ponymaker.avatarcreator.maker.core.helper.RateHelper
 import com.ponymaker.avatarcreator.maker.core.helper.SoundHelper
-import com.ponymaker.avatarcreator.maker.core.utils.key.IntentKey
 import com.ponymaker.avatarcreator.maker.core.utils.state.RateState
 import com.ponymaker.avatarcreator.maker.databinding.ActivitySettingsBinding
-import com.ponymaker.avatarcreator.maker.ui.language.LanguageActivity
+import com.ponymaker.avatarcreator.maker.ui.home.HomeViewModel
+import com.ponymaker.avatarcreator.maker.ui.home.initTopBar
+import com.ponymaker.avatarcreator.maker.ui.home.observeTopBar
+import com.ponymaker.avatarcreator.maker.ui.language.LanguageSettingActivity
 
 class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
+
+    private val viewModel: HomeViewModel by activityViewModels()
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ActivitySettingsBinding.inflate(inflater, container, false)
@@ -29,15 +34,16 @@ class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
         updateMusicUI(sharePreference.isMusicEnabled())
         updateEffectUI(sharePreference.isEffectEnabled())
         binding.tvSetting.select()
+        initTopBar(binding.topBar)
     }
 
     override fun viewListener() {
         binding.apply {
-            btnActionBarLeft.tap { parentFragmentManager.popBackStack() }
+            btnCloseSetting.tap { parentFragmentManager.popBackStack() }
             btnMusic.tap { toggleMusic() }
-            btnEffect.tap { toggleEffect() }
+            btnSound.tap { toggleEffect() }
             btnLang.tap {
-                requireActivity().startIntentRightToLeft(LanguageActivity::class.java, IntentKey.INTENT_KEY)
+                requireActivity().startIntentRightToLeft(LanguageSettingActivity::class.java)
             }
             btnShareApp.tap(1500) { requireActivity().shareApp() }
             btnRate.tap {
@@ -53,13 +59,13 @@ class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
     }
 
     private fun updateMusicUI(isEnabled: Boolean) {
-        binding.btnMusic.setImageResource(
+        binding.btnMusic.setBackgroundResource(
             if (isEnabled) R.drawable.ic_sw_on else R.drawable.ic_sw_off
         )
     }
 
     private fun updateEffectUI(isEnabled: Boolean) {
-        binding.btnEffect.setImageResource(
+        binding.btnSound.setBackgroundResource(
             if (isEnabled) R.drawable.ic_sw_on else R.drawable.ic_sw_off
         )
     }
@@ -76,6 +82,10 @@ class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
         sharePreference.setEffectEnabled(isEnabled)
         SoundHelper.isEffectEnabled = isEnabled
         updateEffectUI(isEnabled)
+    }
+
+    override fun dataObservable() {
+        observeTopBar(binding.topBar, viewModel)
     }
 
     private fun initRate() {

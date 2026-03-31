@@ -131,4 +131,6 @@
     <string name="music">MUSIC</string>
     <string name="effect">EFFECT</string>
     <string name="pony">PONY</string>
+    <string name="sound">SOUND</string>
+    <string name="shop">SHOP</string>
 </resources>
