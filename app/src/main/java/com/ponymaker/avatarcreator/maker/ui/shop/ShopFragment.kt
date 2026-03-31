@@ -38,7 +38,8 @@ class ShopFragment : BaseFragment<ActivityShopBinding>() {
     override fun dataObservable() {
         observeTopBar(binding.topBar, viewModel)
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.upgrades.collectLatest { adapter.submitList(it) }
+            launch { viewModel.upgrades.collectLatest { adapter.submitList(it) } }
+            launch { viewModel.coins.collectLatest { adapter.currentCoins = it } }
         }
     }
 }

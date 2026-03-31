@@ -11,19 +11,17 @@
     android:padding="10dp">
 
     <FrameLayout
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/bg_nav_item">
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        >
 
-        <TextView
-            android:id="@+id/tvLevel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/cherry_bomb_regular"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:text="lv.1" />
+        <ImageView
+            android:id="@+id/imgUpgradeIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+
     </FrameLayout>
 
     <LinearLayout
@@ -38,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cherry_bomb_regular"
-            android:textColor="#333333"
+            android:textColor="#004080"
             android:textSize="15sp"
             android:text="Upgrade Name lv.1" />
 
@@ -47,15 +45,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/cherry_bomb_regular"
-            android:textColor="#2ECC71"
+            android:textColor="#FFFFFF"
             android:textSize="13sp"
             android:text="+5 coins/second" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/btnBuy"
-        android:layout_width="72dp"
-        android:layout_height="36dp"
+        android:layout_width="92dp"
+        android:layout_height="32dp"
         android:background="@drawable/bg_price_btn"
         android:gravity="center"
         android:fontFamily="@font/cherry_bomb_regular"
