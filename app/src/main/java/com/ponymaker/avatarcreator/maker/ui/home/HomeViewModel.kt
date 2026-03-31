@@ -40,8 +40,20 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _passiveBoostActive = MutableStateFlow(false)
     val passiveBoostActive: StateFlow<Boolean> = _passiveBoostActive
 
+    private val _passiveBoostProgress = MutableStateFlow(0f)
+    val passiveBoostProgress: StateFlow<Float> = _passiveBoostProgress
+
     private val _boostProgress = MutableStateFlow(0f)
     val boostProgress: StateFlow<Float> = _boostProgress
+
+    private val _tapProgress = MutableStateFlow(0f)
+    val tapProgress: StateFlow<Float> = _tapProgress
+
+    companion object {
+        private const val TAP_THRESHOLD = 0.6875f  // mark at 176/256 of bar
+        private const val TAP_INCREASE  = 0.15f    // per tap
+        private const val TAP_DECAY     = 0.025f   // per 100ms → drains in ~4s
+    }
 
     val upgrades: StateFlow<List<ShopUpgrade>> = shopUpgradeDao.getAllUpgrades()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
@@ -57,6 +69,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             seedDefaultData()
             loadGameState()
             startPassiveIncome()
+            startTapDecay()
         }
     }
 
@@ -81,8 +94,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onPhoneClick() {
-        val multiplier = if (_clickBoostActive.value) 2L else 1L
-        _coins.value += _coinsPerClick.value * multiplier
+        _tapProgress.value = (_tapProgress.value + TAP_INCREASE).coerceAtMost(1f)
+        val tapMultiplier    = if (_tapProgress.value >= TAP_THRESHOLD) 2L else 1L
+        val boostMultiplier  = if (_clickBoostActive.value) 2L else 1L
+        _coins.value += _coinsPerClick.value * tapMultiplier * boostMultiplier
+    }
+
+    private fun startTapDecay() {
+        viewModelScope.launch {
+            while (true) {
+                delay(100)
+                if (_tapProgress.value > 0f) {
+                    _tapProgress.value = (_tapProgress.value - TAP_DECAY).coerceAtLeast(0f)
+                }
+            }
+        }
     }
 
     fun activateClickBoost() {
@@ -107,10 +133,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun activatePassiveBoost() {
         _passiveBoostActive.value = true
+        _passiveBoostProgress.value = 1f
         passiveBoostJob?.cancel()
         passiveBoostJob = viewModelScope.launch {
-            delay(30_000)
-            _passiveBoostActive.value = false
+            val duration = 30_000L
+            val start = System.currentTimeMillis()
+            while (true) {
+                delay(100)
+                val elapsed = System.currentTimeMillis() - start
+                _passiveBoostProgress.value = 1f - (elapsed.toFloat() / duration)
+                if (elapsed >= duration) {
+                    _passiveBoostActive.value = false
+                    _passiveBoostProgress.value = 0f
+                    break
+                }
+            }
         }
     }
 
