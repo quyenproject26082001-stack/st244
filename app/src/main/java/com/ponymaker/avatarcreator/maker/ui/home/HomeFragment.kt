@@ -60,22 +60,20 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
             }
             launch {
                 viewModel.coinsPerClick.collectLatest { cpc ->
-                    binding.tvCoinsPerClick.text = "${formatCoins(cpc)} /click"
+                    binding.tvCoinsPerClick.text = "${formatCoins(cpc)}"
                 }
             }
             launch {
                 viewModel.coinsPerSecond.collectLatest { cps ->
-                    binding.tvCoinsPerSecond.text = "${formatCoins(cps)} /second"
+                    binding.tvCoinsPerSecond.text = "${formatCoins(cps)}"
                 }
             }
             launch {
                 viewModel.clickBoostActive.collectLatest { active ->
                     if (active) {
                         binding.tvCoinsPerClick.setTextColor(requireContext().getColor(R.color.white))
-                        binding.tvCoinsPerClick.setBackgroundResource(R.drawable.bg_boost_click)
                     } else {
                         binding.tvCoinsPerClick.setTextColor(0xFF2ECC71.toInt())
-                        binding.tvCoinsPerClick.setBackgroundResource(R.drawable.bg_stat_pill)
                     }
                 }
             }

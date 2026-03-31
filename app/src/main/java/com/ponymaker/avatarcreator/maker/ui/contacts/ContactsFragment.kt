@@ -43,12 +43,12 @@ class ContactsFragment : BaseFragment<ActivityContactsBinding>() {
             }
             launch {
                 viewModel.coinsPerClick.collectLatest {
-                    binding.tvCoinsPerClick.text = "${formatCoins(it)} /click"
+                    binding.tvCoinsPerClick.text = "${formatCoins(it)}"
                 }
             }
             launch {
                 viewModel.coinsPerSecond.collectLatest {
-                    binding.tvCoinsPerSecond.text = "${formatCoins(it)} /second"
+                    binding.tvCoinsPerSecond.text = "${formatCoins(it)}"
                 }
             }
         }

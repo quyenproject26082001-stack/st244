@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
     android:background="@drawable/bg_home"
     android:clipChildren="false"
     android:clipToOutline="false"
@@ -35,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/cherry_bomb_regular"
-
             android:gravity="center"
             android:text="0 / 1000"
             android:textColor="@color/white"
@@ -64,16 +64,32 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
         android:weightSum="2"
+        android:clipChildren="false"
+        android:clipToOutline="false"
+        android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/coinBarContainer">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
             android:background="@drawable/bg_stat_pill">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_increase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="-5dp"
+                android:visibility="invisible"
+                tool:visibility="visible"
+                android:layout_marginStart="-5dp"
+                />
+
 
             <TextView
                 android:id="@+id/tvCoinsPerClick"
@@ -134,6 +150,20 @@
             android:layout_weight="1"
             android:background="@drawable/bg_stat_pill">
 
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_increase"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="-5dp"
+                android:visibility="invisible"
+                tool:visibility="visible"
+                android:layout_marginStart="-5dp"
+                />
+
+
             <TextView
                 android:id="@+id/tvCoinsPerSecond"
                 android:layout_width="wrap_content"
@@ -182,46 +212,113 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
-    <!-- x2 click boost active label -->
-    <LinearLayout
-        android:id="@+id/layoutClickBoostActive"
-        android:layout_width="0dp"
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="4dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        android:id="@+id/glCenter"/>
+
+
+    <!-- x2 click boost active label -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutClickBoostClickActive"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/glCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statsRow">
 
-        <ProgressBar
-            android:id="@+id/progressBoost"
-            style="?android:attr/progressBarStyleHorizontal"
+        <TextView
+            android:id="@+id/progressBoostClick"
             android:layout_width="0dp"
-            android:layout_height="18dp"
+            android:background="@drawable/ic_loading"
+            android:layout_height="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_weight="1"
+            app:layout_constraintEnd_toStartOf="@id/icX2Click"
             android:max="100"
             android:progress="100"
-            android:progressBackgroundTint="#CCCCCC"
-            android:progressTint="#34C759" />
+             />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/cherry_bomb_regular"
-            android:text="x2"
-            android:textColor="#FFFFFF"
+            android:id="@+id/icX2Click"
+            android:layout_width="26dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/ic_x2"
+            app:layout_constraintEnd_toEndOf="parent"
             android:textSize="12sp" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutClickBoostActiveSecond"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@id/glCenter"
+        app:layout_constraintTop_toBottomOf="@id/statsRow">
+
+        <TextView
+            android:id="@+id/progressBoostSecond"
+            android:layout_width="0dp"
+            android:background="@drawable/ic_loading"
+            android:layout_height="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icX2Second"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:max="100"
+            android:progress="100"
+            />
+
+        <TextView
+            android:id="@+id/icX2Second"
+            android:layout_width="26dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="16dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/ic_x2"
+            android:layout_marginEnd="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="12sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
 
     <!-- Cat circular frame -->
     <FrameLayout
         android:id="@+id/catFrame"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_marginHorizontal="60dp"
         android:background="@drawable/bg_cat_frame"
         android:clipToOutline="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -301,6 +398,44 @@
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/progressBar"
+        android:layout_width="256dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_loading"
+        app:layout_constraintTop_toBottomOf="@id/controlsRow"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+    
+    <ImageView
+        android:layout_width="26dp"
+        android:layout_height="16dp"
+        android:src="@drawable/ic_x2"
+        app:layout_constraintEnd_toEndOf="@id/progressBar"
+        app:layout_constraintTop_toTopOf="@id/progressBar"
+        app:layout_constraintBottom_toBottomOf="@id/progressBar"
+        android:layout_marginEnd="31dp"/>
+    <ImageView
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_mark"
+        android:id="@+id/markProgress"
+        app:layout_constraintTop_toTopOf="@id/progressBar"
+        app:layout_constraintBottom_toBottomOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="@id/progressBar"
+            android:layout_marginEnd="80dp"
+        />
+        
+
+
+
+
 
     <!-- Bottom navigation -->
     <LinearLayout

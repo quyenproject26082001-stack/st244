@@ -13,7 +13,6 @@ import com.ponymaker.avatarcreator.maker.databinding.ActivityIntroBinding
 import com.ponymaker.avatarcreator.maker.ui.MainActivity
 import com.ponymaker.avatarcreator.maker.core.extensions.tap
 import com.ponymaker.avatarcreator.maker.core.extensions.visible
-import com.ponymaker.avatarcreator.maker.ui.home.HomeActivity
 import kotlin.system.exitProcess
 
 class IntroActivity : BaseActivity<ActivityIntroBinding>() {
@@ -63,12 +62,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>() {
             if (nextItem < DataLocal.itemIntroList.size) {
                 vpgTutorial.setCurrentItem(nextItem, true)
             } else {
-                val intent =
-                    if (sharePreference.getIsFirstPermission()) {
-                        Intent(this@IntroActivity, HomeActivity::class.java)
-                    } else {
-                        Intent(this@IntroActivity, MainActivity::class.java)
-                    }
+                val intent = Intent(this@IntroActivity, MainActivity::class.java)
                 startActivity(intent)
                 finishAffinity()
             }
