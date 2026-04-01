@@ -8,7 +8,7 @@
     android:background="@drawable/bg_home"
 
     android:clipChildren="false"
-    tools:context="com.ponymaker.avatarcreator.maker.ui.SettingsActivity">
+    tools:context="com.temppp.ui.SettingsActivity">
 
     <include
         android:id="@+id/topBar"
@@ -49,7 +49,7 @@
 
 
     <!-- LANGUAGE title (overlapping card top) -->
-    <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+    <com.temppp.core.custom.text.DoubleStrokeTextView
         android:id="@+id/tvSetting"
         style="@style/single_marquee"
         android:layout_width="0dp"

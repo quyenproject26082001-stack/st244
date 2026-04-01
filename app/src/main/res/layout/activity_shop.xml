@@ -47,7 +47,7 @@
 
 
     <!-- LANGUAGE title (overlapping card top) -->
-    <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+    <com.temppp.core.custom.text.DoubleStrokeTextView
         android:id="@+id/tvShop"
         style="@style/single_marquee"
         android:layout_width="0dp"

@@ -46,7 +46,7 @@
 
 
     <!-- LANGUAGE title (overlapping card top) -->
-    <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+    <com.temppp.core.custom.text.DoubleStrokeTextView
         android:id="@+id/tvContact"
         style="@style/single_marquee"
         android:layout_width="0dp"
@@ -78,11 +78,14 @@
         android:id="@+id/rvContacts"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:padding="0dp"
+        android:clipToPadding="true"
+        android:paddingTop="1dp"
         android:layout_marginTop="50dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_cat_contact"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvContact" />
 

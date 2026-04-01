@@ -47,7 +47,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_loading" />
 
-        <com.ponymaker.avatarcreator.maker.core.custom.LoadingMaskView
+        <com.temppp.core.custom.LoadingMaskView
             android:id="@+id/vLoadingMask"
             android:layout_width="232dp"
             android:layout_height="16dp"

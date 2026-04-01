@@ -29,7 +29,7 @@
             android:background="#FFDD33" />
 
 
-        <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+        <com.temppp.core.custom.text.DoubleStrokeTextView
             android:id="@+id/tvCoinCount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -122,7 +122,7 @@
                 app:layout_constraintStart_toEndOf="@id/tvCoinsPerClick"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+            <com.temppp.core.custom.text.DoubleStrokeTextView
                 android:id="@+id/tvCoinsPerClickSP"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
@@ -195,7 +195,7 @@
                 app:layout_constraintStart_toEndOf="@id/tvCoinsPerSecond"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.ponymaker.avatarcreator.maker.core.custom.text.DoubleStrokeTextView
+            <com.temppp.core.custom.text.DoubleStrokeTextView
                 android:id="@+id/tvCoinsPerSecondSP"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
