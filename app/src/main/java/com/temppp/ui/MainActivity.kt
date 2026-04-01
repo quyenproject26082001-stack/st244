@@ -10,6 +10,7 @@ import com.temppp.core.utils.state.RateState
 import com.temppp.databinding.ActivityMainBinding
 import com.temppp.ui.contacts.ContactsFragment
 import com.temppp.ui.home.HomeFragment
+import com.temppp.ui.language.LanguageFragment
 import com.temppp.ui.shop.ShopFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -22,9 +23,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun setViewBinding() = ActivityMainBinding.inflate(LayoutInflater.from(this))
 
     override fun initView() {
-        if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
+        if (supportFragmentManager.findFragmentById(R.id.homeContainer) == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, HomeFragment(), TAG_HOME)
+                .replace(R.id.homeContainer, HomeFragment(), TAG_HOME)
                 .commit()
         }
     }
@@ -40,12 +41,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             TAG_SHOP -> ShopFragment()
             TAG_CONTACTS -> ContactsFragment()
             TAG_SETTINGS -> SettingsFragment()
+            TAG_LANGUAGE -> LanguageFragment()
             else -> return
         }
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
-                R.anim.slide_in_right, R.anim.slide_out_left,
-                R.anim.slide_in_left, R.anim.slide_out_right
+                R.anim.slide_in_up, 0,
+                0, R.anim.slide_out_down
             )
             .replace(R.id.fragmentContainer, fragment, tag)
             .addToBackStack(null)
@@ -80,5 +82,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         const val TAG_SHOP = "shop"
         const val TAG_CONTACTS = "contacts"
         const val TAG_SETTINGS = "settings"
+        const val TAG_LANGUAGE = "language"
     }
 }

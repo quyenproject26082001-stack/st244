@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--    flOutSide-->
     <FrameLayout
         android:id="@+id/flOutSide"
         android:layout_width="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:clipToOutline="false"
         android:layout_height="match_parent">
 
         <!--        layoutMain-->
-        <androidx.cardview.widget.CardView
+        <FrameLayout
             android:id="@+id/layoutMain"
             app:cardBackgroundColor="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:clipToOutline="false"
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             app:cardCornerRadius="8dp"
@@ -22,25 +29,33 @@
                 android:id="@+id/containerDialog"
                 android:layout_width="311dp"
                 android:layout_height="172dp"
-                android:background="@drawable/bg_dialog_delete_exit">
+                android:clipChildren="false"
+                android:clipToOutline="false"
 
-                <TextView
+                android:clipToPadding="false"
+                android:background="@drawable/bg_dialog">
+
+                <com.temppp.core.custom.text.DoubleStrokeTextView
                     android:id="@+id/tvTitle"
                     style="@style/single_marquee"
+
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="90dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/transparent"
-                    android:fontFamily="@font/chewy_regular"
+                    android:layout_marginTop="-25dp"
+                    android:elevation="1dp"
+                    android:fontFamily="@font/cherry_bomb_regular"
                     android:gravity="center"
-                    android:paddingVertical="5dp"
-                    android:text="@string/delete"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"
+                    android:text="@string/settings"
+                    android:textColor="#7FC0FF"
+                    android:textSize="32sp"
+                    app:innerStrokeColor="@color/white"
+                    app:innerStrokeWidth="3dp"
+                    app:layout_constraintDimensionRatio="164:40"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:outerStrokeColor="#00407F"
+                    app:outerStrokeWidth="10dp" />
 
                 <!--            tvDescription-->
                 <TextView
@@ -109,7 +124,7 @@
                 android:src="@drawable/ic_loading"
                 android:visibility="gone" />
 
-        </androidx.cardview.widget.CardView>
+        </FrameLayout>
 
     </FrameLayout>
 </layout>

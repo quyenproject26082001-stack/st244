@@ -1,33 +1,25 @@
 package com.temppp.ui.language
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import androidx.activity.viewModels
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.temppp.R
-import com.temppp.core.base.BaseActivity
-import com.temppp.core.extensions.handleBackLeftToRight
-import com.temppp.core.extensions.select
-import com.temppp.core.extensions.startIntentWithClearTop
+import com.temppp.core.base.BaseFragment
 import com.temppp.core.extensions.tap
 import com.temppp.core.extensions.visible
 import com.temppp.databinding.ActivityLanguageSettingBinding
-import com.temppp.ui.MainActivity
-import com.temppp.ui.home.HomeViewModel
 import kotlinx.coroutines.launch
 
-class LanguageSettingActivity : BaseActivity<ActivityLanguageSettingBinding>() {
+class LanguageFragment : BaseFragment<ActivityLanguageSettingBinding>() {
 
     private val viewModel: LanguageViewModel by viewModels()
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val languageAdapter by lazy { LanguageAdapter(requireContext()) }
 
-    private val languageAdapter by lazy { LanguageAdapter(this) }
-
-    override fun setViewBinding(): ActivityLanguageSettingBinding {
-        return ActivityLanguageSettingBinding.inflate(LayoutInflater.from(this))
-    }
+    override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        ActivityLanguageSettingBinding.inflate(inflater, container, false)
 
     override fun initView() {
         binding.rcv.adapter = languageAdapter
@@ -35,11 +27,16 @@ class LanguageSettingActivity : BaseActivity<ActivityLanguageSettingBinding>() {
         val currentLang = sharePreference.getPreLanguage()
         viewModel.setFirstLanguage(false)
         viewModel.loadLanguages(currentLang)
-        binding.tvLang.select()
+    }
+
+    override fun viewListener() {
+        binding.btnBackLangSetting.tap { parentFragmentManager.popBackStack() }
+        binding.btnDoneLangSetting.tap { handleDone() }
+        languageAdapter.onItemClick = { code -> viewModel.selectLanguage(code) }
     }
 
     override fun dataObservable() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.languageList.collect { list ->
@@ -55,16 +52,6 @@ class LanguageSettingActivity : BaseActivity<ActivityLanguageSettingBinding>() {
         }
     }
 
-    override fun viewListener() {
-        binding.btnBackLangSetting.tap { handleBackLeftToRight() }
-        binding.btnDoneLangSetting.tap { handleDone() }
-        binding.btnDoneLangSetting.tap { handleDone() }
-        languageAdapter.onItemClick = { code -> viewModel.selectLanguage(code) }
-    }
-
-    override fun initText() {}
-    override fun initActionBar() {}
-
     private fun handleDone() {
         val code = viewModel.codeLang.value
         if (code.isEmpty()) {
@@ -72,13 +59,6 @@ class LanguageSettingActivity : BaseActivity<ActivityLanguageSettingBinding>() {
             return
         }
         sharePreference.setPreLanguage(code)
-        startIntentWithClearTop(MainActivity::class.java)
+        parentFragmentManager.popBackStack()
     }
-
-    @SuppressLint("MissingSuperCall", "GestureBackNavigation")
-    override fun onBackPressed() {
-        handleBackLeftToRight()
-    }
-
-    override fun shouldPlayBackgroundMusic(): Boolean = false
 }

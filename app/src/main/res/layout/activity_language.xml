@@ -38,8 +38,8 @@
     <!-- checkmark done button (top-right) -->
     <ImageView
         android:id="@+id/btnDone"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_gravity="end"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="20dp"

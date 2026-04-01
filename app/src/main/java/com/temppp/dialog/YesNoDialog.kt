@@ -53,21 +53,21 @@ class YesNoDialog(
 
     private fun initBackground() {
         val bgRes = when (dialogType) {
-            DialogType.DELETE_EXIT -> R.drawable.bg_dialog_delete_exit
-            DialogType.RESET -> R.drawable.bg_dialog_reset
-            DialogType.LOADING -> R.drawable.bg_dialog_loading
-            DialogType.INTERNET -> R.drawable.bg_dialog_internet
-            DialogType.PERMISSION -> R.drawable.bg_dialog_loading
+            DialogType.DELETE_EXIT -> R.drawable.bg_dialog
+            DialogType.RESET -> R.drawable.bg_dialog
+            DialogType.LOADING -> R.drawable.bg_dialog
+            DialogType.INTERNET -> R.drawable.bg_dialog
+            DialogType.PERMISSION -> R.drawable.bg_dialog
         }
 
         binding.containerDialog.setBackgroundResource(bgRes)
 
         val textColor = when (dialogType) {
-            DialogType.DELETE_EXIT -> Color.parseColor("#4D4D4D")
-            DialogType.RESET -> Color.parseColor("#4D4D4D")
-            DialogType.LOADING -> Color.parseColor("#4D4D4D")
-            DialogType.INTERNET -> Color.parseColor("#4D4D4D")
-            DialogType.PERMISSION -> Color.parseColor("#4D4D4D")
+            DialogType.DELETE_EXIT -> Color.parseColor("#00407F")
+            DialogType.RESET -> Color.parseColor("#00407F")
+            DialogType.LOADING -> Color.parseColor("#00407F")
+            DialogType.INTERNET -> Color.parseColor("#00407F")
+            DialogType.PERMISSION -> Color.parseColor("#00407F")
         }
 
         binding.tvDescription.setTextColor(textColor)

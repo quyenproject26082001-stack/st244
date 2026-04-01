@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragmentContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
+
+    <!-- HomeFragment luôn hiển thị full screen (topbar lộ ra phía trên) -->
+    <FrameLayout
+        android:id="@+id/homeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Sub-fragments (Shop/Contacts/Settings) chỉ chiếm phần dưới topbar -->
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="154dp" />
+
+</FrameLayout>

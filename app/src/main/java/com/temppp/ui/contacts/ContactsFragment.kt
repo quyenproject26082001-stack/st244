@@ -6,11 +6,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.temppp.core.base.BaseFragment
-import com.temppp.core.extensions.tap
 import com.temppp.databinding.ActivityContactsBinding
+import com.temppp.core.extensions.tap
 import com.temppp.ui.home.HomeViewModel
-import com.temppp.ui.home.initTopBar
-import com.temppp.ui.home.observeTopBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,7 +26,6 @@ class ContactsFragment : BaseFragment<ActivityContactsBinding>() {
         }
         binding.rvContacts.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvContacts.adapter = adapter
-        initTopBar(binding.topBar)
     }
 
     override fun viewListener() {
@@ -36,7 +33,6 @@ class ContactsFragment : BaseFragment<ActivityContactsBinding>() {
     }
 
     override fun dataObservable() {
-        observeTopBar(binding.topBar, viewModel)
         viewLifecycleOwner.lifecycleScope.launch {
             launch { viewModel.cats.collectLatest { adapter.submitList(it) } }
             launch { viewModel.coins.collectLatest { adapter.currentCoins = it } }

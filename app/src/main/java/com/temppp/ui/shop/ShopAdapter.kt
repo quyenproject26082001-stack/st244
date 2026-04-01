@@ -35,7 +35,8 @@ class ShopAdapter(
                 upgrade.name.lowercase().replace(" ", "_"), "drawable", context.packageName
             )
             if (resId != 0) binding.imgUpgradeIcon.setImageResource(resId)
-            binding.tvUpgradeDesc.text = descWithCoinIcon(upgrade.description)
+            val desc = if (upgrade.level == 0) upgrade.description.replace(Regex("[0-9][0-9KMB.,]*"), "???") else upgrade.description
+            binding.tvUpgradeDesc.text = descWithCoinIcon(desc)
             binding.tvBuyPrice.text = formatCoins(upgrade.price)
             binding.btnBuy.setBackgroundResource(
                 if (currentCoins >= upgrade.price) R.drawable.bg_price_btn

@@ -51,7 +51,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
         private const val TAP_THRESHOLD = 0.6875f  // mark at 176/256 of bar
-        private const val TAP_INCREASE  = 0.15f    // per tap
+        private const val TAP_INCREASE  = 0.05f    // per tap
         private const val TAP_DECAY     = 0.025f   // per 100ms → drains in ~4s
     }
 
