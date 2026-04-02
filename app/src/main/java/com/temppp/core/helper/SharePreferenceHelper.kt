@@ -12,6 +12,7 @@ import com.temppp.core.utils.key.SharePreferenceKey.FIRST_LANG_KEY
 import com.temppp.core.utils.key.SharePreferenceKey.FIRST_PERMISSION_KEY
 import com.temppp.core.utils.key.SharePreferenceKey.KEY_LANGUAGE
 import com.temppp.core.utils.key.SharePreferenceKey.EFFECT_KEY
+import com.temppp.core.utils.key.SharePreferenceKey.GOD_MODE_KEY
 import com.temppp.core.utils.key.SharePreferenceKey.MUSIC_KEY
 import com.temppp.core.utils.key.SharePreferenceKey.PRIDE_CUSTOM_FLAGS
 import com.temppp.core.utils.key.SharePreferenceKey.RATE_KEY
@@ -153,5 +154,12 @@ class SharePreferenceHelper(val context: Context) {
 
     fun setEffectEnabled(enabled: Boolean) {
         preferences.edit().putBoolean(EFFECT_KEY, enabled).apply()
+    }
+
+    // God Mode
+    fun isGodMode(): Boolean = preferences.getBoolean(GOD_MODE_KEY, false)
+
+    fun setGodMode(enabled: Boolean) {
+        preferences.edit().putBoolean(GOD_MODE_KEY, enabled).apply()
     }
 }

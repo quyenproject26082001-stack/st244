@@ -168,6 +168,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun toggleGodMode(enabled: Boolean) {
+        viewModelScope.launch {
+            if (enabled) {
+                _coins.value = 999_999_999_999_999L
+                gameStateDao.updateCoins(_coins.value)
+                catContactDao.unlockAllCats()
+            } else {
+                _coins.value = 0L
+                gameStateDao.updateCoins(_coins.value)
+                catContactDao.lockAllCatsExceptFirst()
+            }
+            _selectedCat.value = catContactDao.getSelectedCat()
+        }
+    }
+
     fun refreshStats() {
         viewModelScope.launch {
             val state = gameStateDao.getGameStateOnce() ?: return@launch

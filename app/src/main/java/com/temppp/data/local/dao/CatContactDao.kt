@@ -31,6 +31,12 @@ interface CatContactDao {
     @Query("UPDATE cat_contacts SET isUnlocked = 1 WHERE id = :catId")
     suspend fun unlockCat(catId: Int)
 
+    @Query("UPDATE cat_contacts SET isUnlocked = 1")
+    suspend fun unlockAllCats()
+
+    @Query("UPDATE cat_contacts SET isUnlocked = 0 WHERE id != 1")
+    suspend fun lockAllCatsExceptFirst()
+
     @Query("UPDATE cat_contacts SET isSelected = 0")
     suspend fun deselectAll()
 

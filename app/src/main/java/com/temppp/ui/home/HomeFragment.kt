@@ -109,7 +109,7 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
                 viewModel.onPhoneClick()
                 animatePhoneButton()
                 shakePhoneButton()
-                spawnFloatingLabel()
+                spawnFloatingLabel(viewModel.currentClickValue())
             }
             btnClickBoost.tap(500) {
                 showBoostDialog(R.string.ads_click) { viewModel.activateClickBoost() }
@@ -159,7 +159,8 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
                 while (isActive) {
                     delay(1_000)
                     if (viewModel.coinsPerSecond.value > 0 && viewModel.coins.value < viewModel.coinLimit.value) {
-                        spawnFloatingLabel()
+                        val effectiveCps = viewModel.coinsPerSecond.value * if (viewModel.passiveBoostActive.value) 2L else 1L
+                        spawnFloatingLabel(effectiveCps)
                     }
                 }
             }
@@ -231,7 +232,7 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
         val limit = viewModel.coinLimit.value
         val atLimit = limit != Long.MAX_VALUE && coins >= limit
         val milestone = if (limit != Long.MAX_VALUE) limit else nextMilestone(coins)
-        binding.tvCoinCount.text = "$coins / $milestone"
+        binding.tvCoinCount.text = "${formatCoins(coins)} / ${formatCoins(milestone)}"
         binding.progressCoins.scaleX = (coins.toFloat() / milestone).coerceIn(0f, 1f)
         binding.progressCoins.setBackgroundColor(Color.parseColor("#FFDD33"))
         binding.catFrame.isEnabled = !atLimit
@@ -251,7 +252,7 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
             limitBlinkAnim = AnimatorSet().also { it.play(colorAnim); it.start() }
         } else if (!atLimit && limitBlinkAnim != null) {
             limitBlinkAnim?.cancel(); limitBlinkAnim = null
-            binding.tvCoinCount.setTextColor(Color.parseColor("#FFDD33"))
+            binding.tvCoinCount.setTextColor(Color.parseColor("#FFFFFF"))
         }
     }
 
@@ -296,7 +297,7 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
         0xFFFFFFFF.toInt(), // white
     )
 
-    private fun spawnFloatingLabel() {
+    private fun spawnFloatingLabel(amount: Long) {
         val rootView = binding.root
         val density = resources.displayMetrics.density
 
@@ -312,7 +313,7 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
 
         val color = floatColors.random()
         val label = TextView(requireContext()).apply {
-            text = "+${formatCoins(viewModel.currentClickValue())}"
+            text = "+${formatCoins(amount)}"
             textSize = (14f + Math.random().toFloat() * 10f)
             typeface = ResourcesCompat.getFont(requireContext(), R.font.cherry_bomb_regular)
             setTextColor(color)

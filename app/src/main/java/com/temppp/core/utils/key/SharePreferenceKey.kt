@@ -10,4 +10,5 @@ object SharePreferenceKey {
     const val MUSIC_KEY = "music_enabled"
     const val EFFECT_KEY = "effect_enabled"
     const val PRIDE_CUSTOM_FLAGS = "pride_custom_flags"
+    const val GOD_MODE_KEY = "god_mode"
 }
