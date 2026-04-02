@@ -14,19 +14,31 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.temppp.R
+import android.net.Uri
+import androidx.core.app.ActivityCompat.finishAffinity
+import com.bumptech.glide.Glide
 import com.temppp.core.base.BaseFragment
 import com.temppp.core.extensions.tap
+import com.temppp.core.helper.RateHelper
+import com.temppp.core.helper.SharePreferenceHelper
+import com.temppp.core.utils.state.RateState
 import com.temppp.databinding.ActivityHomeBinding
+import com.temppp.dialog.YesNoDialog
 import com.temppp.ui.MainActivity
+import com.temppp.ui.call.CallActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-
+import kotlinx.coroutines.withContext
+import kotlin.rem
 
 
 class HomeFragment : BaseFragment<ActivityHomeBinding>() {
@@ -39,12 +51,12 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
     private var passiveX2Anim: AnimatorSet? = null
     private var clickSpeedLinesJob: Job? = null
     private var passiveSpeedLinesJob: Job? = null
+    private var limitBlinkAnim: AnimatorSet? = null
 
     override fun setViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
         ActivityHomeBinding.inflate(inflater, container, false)
 
     override fun initView() {
-        sharePreference.setCountBack(sharePreference.getCountBack() + 1)
 
         val cornerRadius = 20 * resources.displayMetrics.density
 
@@ -100,12 +112,10 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
                 spawnFloatingLabel()
             }
             btnClickBoost.tap(500) {
-                viewModel.activateClickBoost()
-                showToast("x2 Click boost activated!")
+                showBoostDialog(R.string.ads_click) { viewModel.activateClickBoost() }
             }
             btnPassiveBoost.tap(500) {
-                viewModel.activatePassiveBoost()
-                showToast("x2 Passive boost activated!")
+                showBoostDialog(R.string.ads_second) { viewModel.activatePassiveBoost() }
             }
             btnNavShop.tap(300) {
                 (requireActivity() as MainActivity).navigateTo(MainActivity.TAG_SHOP)
@@ -116,6 +126,10 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
             btnNavSettings.tap(300) {
                 (requireActivity() as MainActivity).navigateTo(MainActivity.TAG_SETTINGS)
             }
+            btnPhone.tap(300) {
+                val catId = viewModel.selectedCat.value?.id ?: 1
+                CallActivity.start(requireActivity(), catId)
+            }
         }
     }
 
@@ -125,21 +139,27 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
                 viewModel.coins.collectLatest { coins -> updateCoinDisplay(coins) }
             }
             launch {
-                viewModel.coinsPerClick.collectLatest { cpc ->
-                    binding.tvCoinsPerClick.text = "${formatCoins(cpc)}"
+                viewModel.coinLimit.collectLatest { updateCoinDisplay(viewModel.coins.value) }
+            }
+            launch {
+                combine(viewModel.coinsPerClick, viewModel.clickBoostActive) { cpc, boostActive ->
+                    if (boostActive) cpc * 2 else cpc
+                }.collectLatest { effectiveCpc ->
+                    binding.tvCoinsPerClick.text = "${formatCoins(effectiveCpc)}"
                 }
             }
             launch {
-                viewModel.coinsPerSecond.collectLatest { cps ->
-                    binding.tvCoinsPerSecond.text = "${formatCoins(cps)}"
+                combine(viewModel.coinsPerSecond, viewModel.passiveBoostActive) { cps, boostActive ->
+                    if (boostActive) cps * 2 else cps
+                }.collectLatest { effectiveCps ->
+                    binding.tvCoinsPerSecond.text = "${formatCoins(effectiveCps)}"
                 }
             }
             launch {
-                viewModel.clickBoostActive.collectLatest { active ->
-                    if (active) {
-                        binding.tvCoinsPerClick.setTextColor(requireContext().getColor(R.color.white))
-                    } else {
-                        binding.tvCoinsPerClick.setTextColor(0xFF2ECC71.toInt())
+                while (isActive) {
+                    delay(1_000)
+                    if (viewModel.coinsPerSecond.value > 0 && viewModel.coins.value < viewModel.coinLimit.value) {
+                        spawnFloatingLabel()
                     }
                 }
             }
@@ -196,7 +216,7 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
             }
             launch {
                 viewModel.selectedCat.collectLatest { cat ->
-                    if (cat != null) loadCatImage("cat${cat.id}_light")
+                    if (cat != null) loadCatImage(cat.id)
                 }
             }
         }
@@ -208,9 +228,31 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
     }
 
     private fun updateCoinDisplay(coins: Long) {
-        val milestone = nextMilestone(coins)
+        val limit = viewModel.coinLimit.value
+        val atLimit = limit != Long.MAX_VALUE && coins >= limit
+        val milestone = if (limit != Long.MAX_VALUE) limit else nextMilestone(coins)
         binding.tvCoinCount.text = "$coins / $milestone"
         binding.progressCoins.scaleX = (coins.toFloat() / milestone).coerceIn(0f, 1f)
+        binding.progressCoins.setBackgroundColor(Color.parseColor("#FFDD33"))
+        binding.catFrame.isEnabled = !atLimit
+        binding.catFrame.alpha = if (atLimit) 0.5f else 1f
+
+        if (atLimit && limitBlinkAnim == null) {
+            val colorAnim = android.animation.ValueAnimator.ofArgb(
+                Color.parseColor("#FFFFFF"),
+                Color.parseColor("#FF4444")
+            ).apply {
+                duration = 500
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = android.animation.ValueAnimator.REVERSE
+                interpolator = AccelerateDecelerateInterpolator()
+                addUpdateListener { binding.tvCoinCount.setTextColor(it.animatedValue as Int) }
+            }
+            limitBlinkAnim = AnimatorSet().also { it.play(colorAnim); it.start() }
+        } else if (!atLimit && limitBlinkAnim != null) {
+            limitBlinkAnim?.cancel(); limitBlinkAnim = null
+            binding.tvCoinCount.setTextColor(Color.parseColor("#FFDD33"))
+        }
     }
 
     private fun nextMilestone(coins: Long): Long {
@@ -416,8 +458,32 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
         }
     }
 
-    private fun loadCatImage(imageRes: String) {
-        val resId = resources.getIdentifier(imageRes, "drawable", requireContext().packageName)
-        binding.imgCat.setImageResource(if (resId != 0) resId else R.drawable.ic_loading)
+    private fun showBoostDialog(descriptionRes: Int, onConfirm: () -> Unit) {
+        val dialog = YesNoDialog(requireActivity(), R.string.what_ads, descriptionRes)
+        dialog.onYesClick = { dialog.dismiss(); onConfirm() }
+        dialog.onNoClick = { dialog.dismiss() }
+        dialog.onDismissClick = { dialog.dismiss() }
+        dialog.show()
+    }
+
+    private fun loadCatImage(catId: Int) {
+        val assetFile = if (catId == 1) "avatar/img.png" else "avatar/img_${catId - 1}.png"
+        Glide.with(this)
+            .load(Uri.parse("file:///android_asset/$assetFile"))
+            .placeholder(R.drawable.ic_loading)
+            .into(binding.imgCat)
+    }
+
+    override fun onViewCreated(view: android.view.View, savedInstanceState: android.os.Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val newCount = sharePreference.getCountBack() + 1
+                sharePreference.setCountBack(newCount)
+                if (!sharePreference.getIsRate(requireContext()) && newCount % 2 == 0) {
+                    RateHelper.showRateDialog(requireActivity(), sharePreference)
+                }
+            }
+        })
     }
 }

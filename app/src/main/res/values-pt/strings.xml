@@ -134,4 +134,9 @@
     <string name="sound">SOUND</string>
     <string name="shop">SHOP</string>
     <string name="contact">CONTACTS</string>
+    <string name="what_ads">WHAT ADS</string>
+    <string name="ads_click">WATCH ADS TO DOUBLE YOUR CLICK SPEED AND EARN COINS IN 1 MINUTE</string>
+    <string name="ads_second">WATCH ADS TO DOUBLE YOUR COIN MINING SPEED FOR 1 MINUTE</string>
+    <string name="selected">SELECTED</string>
+    <string name="choose">CHOOSE</string>
 </resources>

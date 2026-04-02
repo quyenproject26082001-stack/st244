@@ -52,33 +52,16 @@ class YesNoDialog(
     }
 
     private fun initBackground() {
-        val bgRes = when (dialogType) {
-            DialogType.DELETE_EXIT -> R.drawable.bg_dialog
-            DialogType.RESET -> R.drawable.bg_dialog
-            DialogType.LOADING -> R.drawable.bg_dialog
-            DialogType.INTERNET -> R.drawable.bg_dialog
-            DialogType.PERMISSION -> R.drawable.bg_dialog
-        }
-
-        binding.containerDialog.setBackgroundResource(bgRes)
-
-        val textColor = when (dialogType) {
-            DialogType.DELETE_EXIT -> Color.parseColor("#00407F")
-            DialogType.RESET -> Color.parseColor("#00407F")
-            DialogType.LOADING -> Color.parseColor("#00407F")
-            DialogType.INTERNET -> Color.parseColor("#00407F")
-            DialogType.PERMISSION -> Color.parseColor("#00407F")
-        }
-
-        binding.tvDescription.setTextColor(textColor)
+        binding.containerDialog.setBackgroundResource(R.drawable.bg_dialog)
+        binding.tvDescription.setTextColor(Color.parseColor("#00407F"))
+        binding.btnNo.setBackgroundResource(R.drawable.bg_btn_no)
+        binding.btnYes.setBackgroundResource(R.drawable.bg_btn_yes)
 
         when (dialogType) {
             DialogType.LOADING -> {
                 binding.btnNo.gone()
-                binding.btnYes.setBackgroundResource(R.drawable.bg_btn_internet_yes)
                 (binding.btnYes.layoutParams as LinearLayout.LayoutParams).marginStart = 0
 
-                // Show spinner and start rotation
                 binding.spin.visible()
                 spinAnim = ObjectAnimator.ofFloat(binding.spin, "rotation", 0f, 360f).apply {
                     duration = 1000
@@ -87,7 +70,6 @@ class YesNoDialog(
                     start()
                 }
 
-                // Anchor tvDescription to bottom
                 val cs = ConstraintSet()
                 cs.clone(binding.containerDialog as ConstraintLayout)
                 cs.clear(R.id.tvDescription, ConstraintSet.TOP)
@@ -103,30 +85,7 @@ class YesNoDialog(
                 binding.btnYes.setBackgroundResource(R.drawable.bg_btn_internet)
                 (binding.btnYes.layoutParams as LinearLayout.LayoutParams).marginStart = 0
             }
-            DialogType.PERMISSION -> {
-                binding.btnNo.setBackgroundResource(R.drawable.bg_btn_permission_no)
-                binding.btnYes.setBackgroundResource(R.drawable.bg_btn_permission_yes)
-                binding.btnYes.setTextColor(Color.parseColor("#FFFFFF"))
-                val paddingVertical = (9 * context.resources.displayMetrics.density).toInt()
-                binding.btnNo.setPadding(0, paddingVertical, 0, paddingVertical)
-                binding.btnYes.setPadding(0, paddingVertical, 0, paddingVertical)
-            }
-            DialogType.RESET -> {
-                binding.btnNo.setBackgroundResource(R.drawable.bg_btn_permission_no)
-                binding.btnYes.setBackgroundResource(R.drawable.bg_btn_permission_yes)
-                binding.btnYes.setTextColor(Color.parseColor("#FFFFFF"))
-                val paddingVertical = (9 * context.resources.displayMetrics.density).toInt()
-                binding.btnNo.setPadding(0, paddingVertical, 0, paddingVertical)
-                binding.btnYes.setPadding(0, paddingVertical, 0, paddingVertical)
-            }
-            DialogType.DELETE_EXIT -> {
-                binding.btnNo.setBackgroundResource(R.drawable.bg_btn_permission_no)
-                binding.btnYes.setBackgroundResource(R.drawable.bg_btn_permission_yes)
-                binding.btnYes.setTextColor(Color.parseColor("#FFFFFF"))
-                val paddingVertical = (9 * context.resources.displayMetrics.density).toInt()
-                binding.btnNo.setPadding(0, paddingVertical, 0, paddingVertical)
-                binding.btnYes.setPadding(0, paddingVertical, 0, paddingVertical)
-            }
+            else -> {}
         }
     }
 

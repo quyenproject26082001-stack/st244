@@ -1,10 +1,13 @@
 package com.temppp.ui.contacts
 
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.temppp.R
 import com.temppp.data.local.entity.CatContact
 import com.temppp.databinding.ItemCatContactBinding
@@ -33,27 +36,32 @@ class ContactsAdapter(
         fun bind(cat: CatContact) {
             val context = binding.root.context
 
-            val imageName = if (cat.isSelected) "cat${cat.id}_light" else "cat${cat.id}_dark"
-            val resId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
-            binding.imgCat.setImageResource(if (resId != 0) resId else R.drawable.ic_loading)
+            // Load avatar từ assets
+            val assetFile = if (cat.id == 1) "avatar/img.png" else "avatar/img_${cat.id - 1}.png"
+            Glide.with(context)
+                .load(Uri.parse("file:///android_asset/$assetFile"))
+                .into(binding.imgCat)
+
+            // Overlay 50% đen cho item chưa unlock
+            binding.overlayDark.visibility = if (!cat.isSelected) View.VISIBLE else View.GONE
 
             when {
                 cat.isSelected -> {
-                    binding.tvActionLabel.text = "CHOSEN"
-                    binding.btnAction.setBackgroundResource(R.drawable.bg_price_btn)
-                    binding.ivCoinIcon.visibility = android.view.View.GONE
+                    binding.tvActionLabel.text = context.getString(R.string.selected)
+                    binding.btnAction.setBackgroundResource(R.drawable.bg_selected)
+                    binding.ivCoinIcon.visibility = View.GONE
                 }
                 cat.isUnlocked -> {
-                    binding.tvActionLabel.text = "CHOOSE"
+                    binding.tvActionLabel.text = context.getString(R.string.choose)
                     binding.btnAction.setBackgroundResource(R.drawable.bg_price_btn)
-                    binding.ivCoinIcon.visibility = android.view.View.GONE
+                    binding.ivCoinIcon.visibility = View.GONE
                 }
                 else -> {
                     binding.tvActionLabel.text = formatCoins(cat.price)
                     binding.btnAction.setBackgroundResource(
                         if (currentCoins >= cat.price) R.drawable.bg_price_btn else R.drawable.bg_price_btn_uslt
                     )
-                    binding.ivCoinIcon.visibility = android.view.View.VISIBLE
+                    binding.ivCoinIcon.visibility = View.VISIBLE
                 }
             }
 

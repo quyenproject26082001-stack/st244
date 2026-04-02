@@ -23,6 +23,6 @@
         android:fontFamily="@font/cherry_bomb_regular"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

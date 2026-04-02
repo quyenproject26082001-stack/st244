@@ -12,6 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -51,7 +52,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
         private const val TAP_THRESHOLD = 0.6875f  // mark at 176/256 of bar
-        private const val TAP_INCREASE  = 0.05f    // per tap
+        private const val TAP_INCREASE  = 0.075f    // per tap
         private const val TAP_DECAY     = 0.025f   // per 100ms → drains in ~4s
     }
 
@@ -60,6 +61,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     val cats: StateFlow<List<CatContact>> = catContactDao.getAllCats()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    val coinLimit: StateFlow<Long> = cats
+        .map { list -> list.filter { !it.isUnlocked && !it.isSelected }.minOfOrNull { it.price } ?: Long.MAX_VALUE }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 100L)
 
     private var clickBoostJob: Job? = null
     private var passiveBoostJob: Job? = null
@@ -74,8 +79,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private suspend fun seedDefaultData() {
-        if (catContactDao.getCount() == 0) {
+        val prefs = getApplication<Application>().getSharedPreferences("app_prefs", android.content.Context.MODE_PRIVATE)
+        val CAT_VERSION = 2
+        if (prefs.getInt("cat_db_version", 0) < CAT_VERSION) {
+            catContactDao.deleteAll()
             catContactDao.insertAll(defaultCats())
+            prefs.edit().putInt("cat_db_version", CAT_VERSION).apply()
         }
         if (shopUpgradeDao.getCount() == 0) {
             shopUpgradeDao.insertAll(defaultUpgrades())
@@ -103,7 +112,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         _tapProgress.value = (_tapProgress.value + TAP_INCREASE).coerceAtMost(1f)
         val tapMultiplier    = if (_tapProgress.value >= TAP_THRESHOLD) 2L else 1L
         val boostMultiplier  = if (_clickBoostActive.value) 2L else 1L
-        _coins.value += _coinsPerClick.value * tapMultiplier * boostMultiplier
+        val limit = coinLimit.value
+        if (_coins.value >= limit) return
+        _coins.value = (_coins.value + _coinsPerClick.value * tapMultiplier * boostMultiplier).coerceAtMost(limit)
     }
 
     private fun startTapDecay() {
@@ -179,7 +190,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 delay(1_000)
                 if (_coinsPerSecond.value > 0) {
                     val multiplier = if (_passiveBoostActive.value) 2L else 1L
-                    _coins.value += _coinsPerSecond.value * multiplier
+                    val limit = coinLimit.value
+                    if (_coins.value < limit) {
+                        _coins.value = (_coins.value + _coinsPerSecond.value * multiplier).coerceAtMost(limit)
+                    }
                 }
             }
         }
@@ -223,14 +237,40 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun defaultCats(): List<CatContact> = listOf(
-        CatContact(1, "Oia",    "cat_glasses", 0,      isUnlocked = true,  isSelected = true),
-        CatContact(2, "Snowy",  "cat_white",   20_000, isUnlocked = false, isSelected = false),
-        CatContact(3, "Rusty",  "cat_orange",  20_000, isUnlocked = false, isSelected = false),
-        CatContact(4, "Grumpy", "cat_grumpy",  40_000, isUnlocked = false, isSelected = false),
-        CatContact(5, "Cap",    "cat_cap",     40_000, isUnlocked = false, isSelected = false),
-        CatContact(6, "Luna",   "cat_luna",    40_000, isUnlocked = false, isSelected = false),
-        CatContact(7, "Tiny",   "cat_tiny",    20_000, isUnlocked = false, isSelected = false),
-        CatContact(8, "Pearl",  "cat_pearl",   40_000, isUnlocked = false, isSelected = false)
+        CatContact(1,  "Oia",     "cat1",  0L,                    isUnlocked = true,  isSelected = true),
+        CatContact(2,  "Snowy",   "cat2",  100L,                  isUnlocked = false, isSelected = false),
+        CatContact(3,  "Rusty",   "cat3",  500L,                  isUnlocked = false, isSelected = false),
+        CatContact(4,  "Grumpy",  "cat4",  1_000L,                isUnlocked = false, isSelected = false),
+        CatContact(5,  "Cap",     "cat5",  2_000L,                isUnlocked = false, isSelected = false),
+        CatContact(6,  "Luna",    "cat6",  5_000L,                isUnlocked = false, isSelected = false),
+        CatContact(7,  "Tiny",    "cat7",  10_000L,               isUnlocked = false, isSelected = false),
+        CatContact(8,  "Pearl",   "cat8",  25_000L,               isUnlocked = false, isSelected = false),
+        CatContact(9,  "Mochi",   "cat9",  50_000L,               isUnlocked = false, isSelected = false),
+        CatContact(10, "Nala",    "cat10", 100_000L,              isUnlocked = false, isSelected = false),
+        CatContact(11, "Felix",   "cat11", 250_000L,              isUnlocked = false, isSelected = false),
+        CatContact(12, "Cleo",    "cat12", 500_000L,              isUnlocked = false, isSelected = false),
+        CatContact(13, "Mango",   "cat13", 1_000_000L,            isUnlocked = false, isSelected = false),
+        CatContact(14, "Pixel",   "cat14", 2_500_000L,            isUnlocked = false, isSelected = false),
+        CatContact(15, "Nova",    "cat15", 5_000_000L,            isUnlocked = false, isSelected = false),
+        CatContact(16, "Cosmo",   "cat16", 10_000_000L,           isUnlocked = false, isSelected = false),
+        CatContact(17, "Milo",    "cat17", 25_000_000L,           isUnlocked = false, isSelected = false),
+        CatContact(18, "Zara",    "cat18", 50_000_000L,           isUnlocked = false, isSelected = false),
+        CatContact(19, "Blaze",   "cat19", 100_000_000L,          isUnlocked = false, isSelected = false),
+        CatContact(20, "Sage",    "cat20", 250_000_000L,          isUnlocked = false, isSelected = false),
+        CatContact(21, "Echo",    "cat21", 500_000_000L,          isUnlocked = false, isSelected = false),
+        CatContact(22, "Frost",   "cat22", 1_000_000_000L,        isUnlocked = false, isSelected = false),
+        CatContact(23, "Storm",   "cat23", 2_500_000_000L,        isUnlocked = false, isSelected = false),
+        CatContact(24, "Ember",   "cat24", 5_000_000_000L,        isUnlocked = false, isSelected = false),
+        CatContact(25, "Atlas",   "cat25", 10_000_000_000L,       isUnlocked = false, isSelected = false),
+        CatContact(26, "Jade",    "cat26", 25_000_000_000L,       isUnlocked = false, isSelected = false),
+        CatContact(27, "Shadow",  "cat27", 50_000_000_000L,       isUnlocked = false, isSelected = false),
+        CatContact(28, "Comet",   "cat28", 100_000_000_000L,      isUnlocked = false, isSelected = false),
+        CatContact(29, "Nebula",  "cat29", 250_000_000_000L,      isUnlocked = false, isSelected = false),
+        CatContact(30, "Soleil",  "cat30", 500_000_000_000L,      isUnlocked = false, isSelected = false),
+        CatContact(31, "Titan",   "cat31", 1_000_000_000_000L,    isUnlocked = false, isSelected = false),
+        CatContact(32, "Vega",    "cat32", 2_500_000_000_000L,    isUnlocked = false, isSelected = false),
+        CatContact(33, "Zenith",  "cat33", 5_000_000_000_000L,    isUnlocked = false, isSelected = false),
+        CatContact(34, "Aurora",  "cat34", 10_000_000_000_000L,   isUnlocked = false, isSelected = false)
     )
 
     private fun defaultUpgrades(): List<ShopUpgrade> = listOf(

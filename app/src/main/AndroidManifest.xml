@@ -32,7 +32,7 @@
             tools:node="remove" />
 
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.studio.StudioActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -40,6 +40,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.intro.IntroActivity"

@@ -22,6 +22,12 @@ interface CatContactDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(cats: List<CatContact>)
 
+    @Query("DELETE FROM cat_contacts")
+    suspend fun deleteAll()
+
+    @Query("UPDATE cat_contacts SET price = :price WHERE id = :id")
+    suspend fun updatePrice(id: Int, price: Long)
+
     @Query("UPDATE cat_contacts SET isUnlocked = 1 WHERE id = :catId")
     suspend fun unlockCat(catId: Int)
 

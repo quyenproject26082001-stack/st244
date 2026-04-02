@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/cherry_bomb_regular"
             android:gravity="center"
-            android:text="0 / 1000"
+            android:text="0 / 100"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"

@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/cherry_bomb_regular"
             android:gravity="center"
-            android:text="0 / 1000"
+            android:text="0 / 100"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -332,15 +332,17 @@
 
 
     <!-- Cat circular frame -->
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/catFrame"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="56dp"
         app:layout_constraintDimensionRatio="1:1"
         android:layout_marginHorizontal="60dp"
-        android:background="@drawable/bg_cat_frame"
+        android:background="@color/transparent"
         android:clipToOutline="true"
+        app:cardCornerRadius="999dp"
+        app:strokeColor="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statsRow">
@@ -351,7 +353,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_loading" />
-    </FrameLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <!-- Boost buttons + phone button -->
     <LinearLayout
