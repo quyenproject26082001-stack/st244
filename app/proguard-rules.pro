@@ -81,6 +81,6 @@
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }
 
--keep class com.temppp.ui.splash.SplashActivity.** {*; }
--keep class com.temppp.data.** {*; }
+-keep class com.cat.cute.callthecat.ui.splash.SplashActivity.** {*; }
+-keep class com.cat.cute.callthecat.data.** {*; }
 -keep public class com.google.android.gms.** { public protected *; }

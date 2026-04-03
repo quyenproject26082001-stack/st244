@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.temppp'
+    namespace 'com.cat.cute.callthecat'
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.temppp"
+        applicationId "com.cat.cute.callthecat"
         minSdk 24
         targetSdk 36
         versionCode 1

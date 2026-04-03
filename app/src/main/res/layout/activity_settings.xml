@@ -6,8 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
+    android:clickable="true"
+    android:focusable="true"
     android:clipChildren="false"
-    tools:context="com.temppp.ui.SettingsActivity">
+    tools:context="com.cat.cute.callthecat.ui.settings.settings.SettingsActivity">
 
 
     <TextView
@@ -39,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <com.temppp.core.custom.text.DoubleStrokeTextView
+    <com.cat.cute.callthecat.core.custom.text.DoubleStrokeTextView
         android:id="@+id/tvSetting"
         style="@style/single_marquee"
         android:layout_width="0dp"

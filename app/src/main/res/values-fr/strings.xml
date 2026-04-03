@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="go_to_setting_message">L\'application a besoin de cette permission</string>
-    <string name="settings">\u00A0PARAMÈTRES\u00A0</string>
+    <string name="settings">\u00A0RÉGLAGES\u00A0</string>
     <string name="this_action_can_contain_ads">Cette action peut contenir des publicités</string>
     <string name="not_select_lang">Veuillez sélectionner une langue</string>
     <string name="language">\u00A0LANGUE\u00A0</string>
@@ -14,7 +14,7 @@
     <string name="notification">NOTIFICATION</string>
     <string name="rate_us">NOTEZ-NOUS</string>
     <string name="share_app">PARTAGER L\'APP</string>
-    <string name="privacy_policy"><![CDATA[CONFIDENTIALITÉ & POLITIQUE]]></string>
+    <string name="privacy_policy"><![CDATA[CONF. & POLITIQUE]]></string>
     <string name="zero_star_title">Aimez-vous l\'application ?</string>
     <string name="zero_star">Dites-nous votre expérience</string>
     <string name="one_star_title">Oh, non !</string>
@@ -59,13 +59,13 @@
     <string name="try_again">RÉESSAYER</string>
     <string name="music">MUSIQUE</string>
     <string name="sound">SON</string>
-    <string name="shop">\u00A0BOUTIQUE\u00A0</string>
+    <string name="shop">\u00A0SHOP\u00A0</string>
     <string name="contact">\u00A0CONTACTS\u00A0</string>
     <string name="what_ads">REGARDER DES PUBS</string>
-    <string name="ads_click">VOULEZ-VOUS OBTENIR 30 SECONDES DE DOUBLE CLICS EN REGARDANT UNE PUB</string>
-    <string name="ads_second">VOULEZ-VOUS OBTENIR 30 SECONDES DE DOUBLE AUTO-CLICS EN REGARDANT UNE PUB</string>
+    <string name="ads_click">VOULEZ-VOUS OBTENIR 30s DE DOUBLE CLICS EN REGARDANT UNE PUB</string>
+    <string name="ads_second">VOULEZ-VOUS OBTENIR 30s DE DOUBLE AUTO-CLICS EN REGARDANT UNE PUB</string>
     <string name="choose">CHOISIR</string>
-    <string name="selected1">SÉLECTIONNÉ</string>
+    <string name="selected1">SÉLECTÉ</string>
     <string name="_5_coins_second">+5 pièces/seconde</string>
     <string name="per_click">/clic</string>
     <string name="per_second">/seconde</string>

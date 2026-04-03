@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:clipChildren="false"
+    android:clickable="true"
+    android:focusable="true"
     android:clipToPadding="false">
 
 
@@ -37,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent"
          />
 
-    <com.temppp.core.custom.text.DoubleStrokeTextView
+    <com.cat.cute.callthecat.core.custom.text.DoubleStrokeTextView
         android:id="@+id/tvShop"
         style="@style/single_marquee"
         android:layout_width="0dp"

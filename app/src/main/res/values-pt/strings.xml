@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="go_to_setting_message">O aplicativo precisa desta permissão</string>
-    <string name="settings">\u00A0CONFIGURAÇÕES\u00A0</string>
+    <string name="settings">\u00A0OPÇÕES\u00A0</string>
     <string name="this_action_can_contain_ads">Esta ação pode conter anúncios</string>
     <string name="not_select_lang">Por favor, selecione um idioma</string>
     <string name="language">\u00A0IDIOMA\u00A0</string>
@@ -62,10 +62,10 @@
     <string name="shop">\u00A0LOJA\u00A0</string>
     <string name="contact">\u00A0CONTATOS\u00A0</string>
     <string name="what_ads">ASSISTIR ANÚNCIOS</string>
-    <string name="ads_click">VOCÊ QUER 30 SEGUNDOS DE CLIQUES DUPLOS POR ASSISTIR UM ANÚNCIO</string>
-    <string name="ads_second">VOCÊ QUER 30 SEGUNDOS DE AUTO-CLIQUES DUPLOS POR ASSISTIR UM ANÚNCIO</string>
+    <string name="ads_click">VOCÊ QUER 30s DE CLIQUES DUPLOS POR ASSISTIR UM ANÚNCIO</string>
+    <string name="ads_second">VOCÊ QUER 30s DE AUTO-CLIQUES DUPLOS POR ASSISTIR UM ANÚNCIO</string>
     <string name="choose">ESCOLHER</string>
-    <string name="selected1">SELECIONADO</string>
+    <string name="selected1">SÉLECTÉ</string>
     <string name="_5_coins_second">+5 moedas/segundo</string>
     <string name="per_click">/clique</string>
     <string name="per_second">/segundo</string>

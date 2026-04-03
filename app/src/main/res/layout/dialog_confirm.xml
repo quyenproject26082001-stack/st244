@@ -35,7 +35,7 @@
                 android:clipToPadding="false"
                 android:background="@drawable/bg_dialog">
 
-                <com.temppp.core.custom.text.DoubleStrokeTextView
+                <com.cat.cute.callthecat.core.custom.text.DoubleStrokeTextView
                     android:id="@+id/tvTitle"
                     style="@style/single_marquee"
 
@@ -94,6 +94,7 @@
                         android:layout_width="120dp"
                         android:layout_height="36dp"
                         android:layout_weight="1"
+                        style="@style/single_marquee"
                         android:fontFamily="@font/cherry_bomb_regular"
                         android:gravity="center"
                         android:background="@drawable/bg_btn_no"
@@ -109,6 +110,8 @@
                         android:layout_height="36dp"
                         android:layout_marginStart="24dp"
                         android:layout_weight="1"
+                        style="@style/single_marquee"
+
                         android:fontFamily="@font/cherry_bomb_regular"
                         android:gravity="center"
                         android:background="@drawable/bg_btn_yes"

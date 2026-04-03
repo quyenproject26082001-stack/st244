@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1034561123552",
-    "project_id": "st239-pony-maker",
-    "storage_bucket": "st239-pony-maker.firebasestorage.app"
+    "project_number": "101985093869",
+    "project_id": "st244-callthecatoiaoia",
+    "storage_bucket": "st244-callthecatoiaoia.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1034561123552:android:2104bbded0a4f249e24c85",
+        "mobilesdk_app_id": "1:101985093869:android:1719d39e2187472c55e4e4",
         "android_client_info": {
-          "package_name": "com.temppp"
+          "package_name": "com.cat.cute.callthecat"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBsrRGi0i19g7sGmhlVf53rqKy4BdZh3y8"
+          "current_key": "AIzaSyCM8GZ3sPzDnlRlvUQIPRXygcJW5tZxl5Y"
         }
       ],
       "services": {

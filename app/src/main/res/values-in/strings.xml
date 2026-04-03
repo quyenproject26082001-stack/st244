@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="go_to_setting_message">Aplikasi membutuhkan izin ini</string>
-    <string name="settings">\u00A0PENGATURAN\u00A0</string>
+    <string name="settings">\u00A0SETELAN\u00A0</string>
     <string name="this_action_can_contain_ads">Tindakan ini mungkin berisi iklan</string>
     <string name="not_select_lang">Silakan pilih bahasa</string>
     <string name="language">\u00A0BAHASA\u00A0</string>

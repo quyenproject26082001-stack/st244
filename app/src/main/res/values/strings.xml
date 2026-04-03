@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name" translatable="false">Pony OC: Avatar Creator</string>
+    <string name="app_name" translatable="false">Call The Cat Oia Oia: Clicker</string>
 
     <string name="go_to_setting_message">The app needs this permission</string>
     <string name="settings">\u00A0SETTING\u00A0</string>
@@ -75,8 +75,8 @@
     <string name="shop">\u00A0SHOP\u00A0</string>
     <string name="contact">\u00A0CONTACTS\u00A0</string>
     <string name="what_ads">WATCH ADS</string>
-    <string name="ads_click">DO YOU WANT TO GET 30SECONDS OF DOUBLE CLICKS FOR VIEWING AN AD</string>
-    <string name="ads_second">DO YOU WANT TO GET 30SECONDS OF DOUBLE AUTOCLICKS FOR VIEWING AN AD</string>
+    <string name="ads_click">DO YOU WANT TO GET 30s OF DOUBLE CLICKS FOR VIEWING AN AD</string>
+    <string name="ads_second">DO YOU WANT TO GET 30s OF DOUBLE AUTOCLICKS FOR VIEWING AN AD</string>
     <string name="choose">CHOOSE</string>
     <string name="selected1">SELECTED</string>
     <string name="_5_coins_second">+5 coins/second</string>

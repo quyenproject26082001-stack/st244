@@ -60,12 +60,12 @@
     <string name="music">MÚSICA</string>
     <string name="sound">SONIDO</string>
     <string name="shop">\u00A0TIENDA\u00A0</string>
-    <string name="contact">\u00A0CONTACTOS\u00A0</string>
+    <string name="contact">\u00A0GATITOS\u00A0</string>
     <string name="what_ads">VER ANUNCIOS</string>
-    <string name="ads_click">¿QUIERES OBTENER 30 SEGUNDOS DE DOBLE CLICS POR VER UN ANUNCIO?</string>
-    <string name="ads_second">¿QUIERES OBTENER 30 SEGUNDOS DE DOBLE AUTO-CLICS POR VER UN ANUNCIO?</string>
+    <string name="ads_click">¿QUIERES OBTENER 30s DE DOBLE CLICS POR VER UN ANUNCIO?</string>
+    <string name="ads_second">¿QUIERES OBTENER 30s DE DOBLE AUTO-CLICS POR VER UN ANUNCIO?</string>
     <string name="choose">ELEGIR</string>
-    <string name="selected1">SELECCIONADO</string>
+    <string name="selected1">ELEGIDO</string>
     <string name="_5_coins_second">+5 monedas/segundo</string>
     <string name="per_click">/clic</string>
     <string name="per_second">/segundo</string>
