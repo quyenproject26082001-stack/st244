@@ -26,6 +26,7 @@ class ContactsFragment : BaseFragment<ActivityContactsBinding>() {
         }
         binding.rvContacts.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvContacts.adapter = adapter
+        binding.tvContact.isSelected = true
     }
 
     override fun viewListener() {

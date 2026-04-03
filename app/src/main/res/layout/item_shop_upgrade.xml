@@ -47,7 +47,7 @@
             android:fontFamily="@font/cherry_bomb_regular"
             android:textColor="#FFFFFF"
             android:textSize="13sp"
-            android:text="+5 coins/second" />
+            android:text="@string/_5_coins_second" />
     </LinearLayout>
 
     <LinearLayout

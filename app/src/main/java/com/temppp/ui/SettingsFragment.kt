@@ -30,7 +30,7 @@ class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
         updateMusicUI(sharePreference.isMusicEnabled())
         updateEffectUI(sharePreference.isEffectEnabled())
         updateGodModeUI(sharePreference.isGodMode())
-        binding.tvSetting.select()
+        binding.tvSetting.isSelected = true
     }
 
     override fun viewListener() {

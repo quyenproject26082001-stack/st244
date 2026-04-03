@@ -131,7 +131,7 @@
 
                 android:fontFamily="@font/cherry_bomb_regular"
                 android:gravity="center"
-                android:text="/click"
+                android:text="@string/per_click"
                 android:textColor="#804D06"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -204,7 +204,7 @@
 
                 android:fontFamily="@font/cherry_bomb_regular"
                 android:gravity="center"
-                android:text="/second"
+                android:text="@string/per_second"
                 android:textColor="#804D06"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

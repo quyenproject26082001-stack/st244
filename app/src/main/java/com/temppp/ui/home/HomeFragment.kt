@@ -106,10 +106,13 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
     override fun viewListener() {
         binding.apply {
             catFrame.tap(0) {
-                viewModel.onPhoneClick()
+                val atLimit = viewModel.coinLimit.value != Long.MAX_VALUE && viewModel.coins.value >= viewModel.coinLimit.value
+                if (!atLimit) {
+                    viewModel.onPhoneClick()
+                    spawnFloatingLabel(viewModel.currentClickValue())
+                }
                 animatePhoneButton()
                 shakePhoneButton()
-                spawnFloatingLabel(viewModel.currentClickValue())
             }
             btnClickBoost.tap(500) {
                 showBoostDialog(R.string.ads_click) { viewModel.activateClickBoost() }
@@ -142,8 +145,10 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
                 viewModel.coinLimit.collectLatest { updateCoinDisplay(viewModel.coins.value) }
             }
             launch {
-                combine(viewModel.coinsPerClick, viewModel.clickBoostActive) { cpc, boostActive ->
-                    if (boostActive) cpc * 2 else cpc
+                combine(viewModel.coinsPerClick, viewModel.clickBoostActive, viewModel.tapProgress) { cpc, boostActive, tap ->
+                    val tapMultiplier = if (tap >= HomeViewModel.TAP_THRESHOLD) 2L else 1L
+                    val boostMultiplier = if (boostActive) 2L else 1L
+                    cpc * tapMultiplier * boostMultiplier
                 }.collectLatest { effectiveCpc ->
                     binding.tvCoinsPerClick.text = "${formatCoins(effectiveCpc)}"
                 }
@@ -235,8 +240,7 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
         binding.tvCoinCount.text = "${formatCoins(coins)} / ${formatCoins(milestone)}"
         binding.progressCoins.scaleX = (coins.toFloat() / milestone).coerceIn(0f, 1f)
         binding.progressCoins.setBackgroundColor(Color.parseColor("#FFDD33"))
-        binding.catFrame.isEnabled = !atLimit
-        binding.catFrame.alpha = if (atLimit) 0.5f else 1f
+        binding.catFrame.alpha = 1f
 
         if (atLimit && limitBlinkAnim == null) {
             val colorAnim = android.animation.ValueAnimator.ofArgb(
@@ -475,16 +479,4 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
             .into(binding.imgCat)
     }
 
-    override fun onViewCreated(view: android.view.View, savedInstanceState: android.os.Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val newCount = sharePreference.getCountBack() + 1
-                sharePreference.setCountBack(newCount)
-                if (!sharePreference.getIsRate(requireContext()) && newCount % 2 == 0) {
-                    RateHelper.showRateDialog(requireActivity(), sharePreference)
-                }
-            }
-        })
-    }
 }

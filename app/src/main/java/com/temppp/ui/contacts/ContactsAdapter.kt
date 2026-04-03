@@ -47,7 +47,7 @@ class ContactsAdapter(
 
             when {
                 cat.isSelected -> {
-                    binding.tvActionLabel.text = context.getString(R.string.selected)
+                    binding.tvActionLabel.text = context.getString(R.string.selected1)
                     binding.btnAction.setBackgroundResource(R.drawable.bg_selected)
                     binding.ivCoinIcon.visibility = View.GONE
                 }

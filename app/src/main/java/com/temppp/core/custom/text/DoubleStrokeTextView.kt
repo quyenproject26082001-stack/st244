@@ -3,6 +3,7 @@ package com.temppp.core.custom.text
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.widget.TextView
 import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
@@ -57,6 +58,17 @@ class DoubleStrokeTextView : AppCompatTextView {
                 }
 
             }
+        }
+    }
+
+    override fun setSelected(selected: Boolean) {
+        super.setSelected(selected)
+        if (selected) post {
+            try {
+                val m = TextView::class.java.getDeclaredMethod("startMarquee")
+                m.isAccessible = true
+                m.invoke(this)
+            } catch (_: Exception) {}
         }
     }
 

@@ -69,9 +69,7 @@ class SharePreferenceHelper(val context: Context) {
 
     // Back
     fun setCountBack(countBack: Int) {
-        val editor = preferences.edit()
-        editor.putInt(COUNT_BACK_KEY, countBack)
-        editor.apply()
+        preferences.edit().putInt(COUNT_BACK_KEY, countBack).commit()
     }
 
     fun getCountBack(): Int {

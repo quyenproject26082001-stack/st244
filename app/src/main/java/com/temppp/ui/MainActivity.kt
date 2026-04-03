@@ -59,7 +59,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
         } else {
-            if (!sharePreference.getIsRate(this) && sharePreference.getCountBack() % 2 == 0) {
+            val newCount = sharePreference.getCountBack() + 1
+            sharePreference.setCountBack(newCount)
+            if (!sharePreference.getIsRate(this) && newCount % 2 == 0) {
                 rateApp(sharePreference) { state ->
                     if (state != RateState.CANCEL) {
                         showToast(R.string.have_rated)

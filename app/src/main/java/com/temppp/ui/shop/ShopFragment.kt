@@ -26,6 +26,7 @@ class ShopFragment : BaseFragment<ActivityShopBinding>() {
         }
         binding.rvShop.layoutManager = LinearLayoutManager(requireContext())
         binding.rvShop.adapter = adapter
+        binding.tvShop.isSelected =true
     }
 
     override fun viewListener() {

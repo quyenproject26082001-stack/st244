@@ -2,10 +2,10 @@ package com.temppp.ui.home
 
 fun formatCoins(value: Long): String {
     val (divisor, suffix) = when {
-        value >= 1_000_000_000_000L -> 1_000_000_000_000L to "t"
-        value >= 1_000_000_000L     -> 1_000_000_000L     to "b"
-        value >= 1_000_000L         -> 1_000_000L         to "m"
-        value >= 1_000L             -> 1_000L             to "k"
+        value >= 1_000_000_000_000L -> 1_000_000_000_000L to "T"
+        value >= 1_000_000_000L     -> 1_000_000_000L     to "B"
+        value >= 1_000_000L         -> 1_000_000L         to "M"
+        value >= 1_000L             -> 1_000L             to "K"
         else                        -> return value.toString()
     }
     val whole = value / divisor

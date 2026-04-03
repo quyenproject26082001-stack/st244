@@ -39,7 +39,7 @@
                     android:id="@+id/tvTitle"
                     style="@style/single_marquee"
 
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-25dp"
                     android:elevation="1dp"
@@ -97,7 +97,7 @@
                         android:fontFamily="@font/cherry_bomb_regular"
                         android:gravity="center"
                         android:background="@drawable/bg_btn_no"
-                        android:paddingVertical="6dp"
+                        android:paddingVertical="0dp"
                         android:text="@string/no"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp" />
@@ -112,7 +112,7 @@
                         android:fontFamily="@font/cherry_bomb_regular"
                         android:gravity="center"
                         android:background="@drawable/bg_btn_yes"
-                        android:paddingVertical="9dp"
+                        android:paddingVertical="0dp"
                         android:text="@string/yes"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
