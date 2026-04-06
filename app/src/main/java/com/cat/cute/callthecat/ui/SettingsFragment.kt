@@ -28,7 +28,7 @@ class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
         initRate()
         updateMusicUI(sharePreference.isMusicEnabled())
         updateEffectUI(sharePreference.isEffectEnabled())
-        updateGodModeUI(sharePreference.isGodMode())
+        //updateGodModeUI(sharePreference.isGodMode())
         binding.tvSetting.isSelected = true
     }
 
@@ -50,7 +50,7 @@ class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
                 }
             }
             btnPolicy.tap(1500) { requireActivity().policy() }
-            btnGodMode.tap { toggleGodMode() }
+           // btnGodMode.tap { toggleGodMode() }
         }
     }
 
@@ -80,18 +80,18 @@ class SettingsFragment : BaseFragment<ActivitySettingsBinding>() {
         updateEffectUI(isEnabled)
     }
 
-    private fun toggleGodMode() {
-        val isEnabled = !sharePreference.isGodMode()
-        sharePreference.setGodMode(isEnabled)
-        viewModel.toggleGodMode(isEnabled)
-        updateGodModeUI(isEnabled)
-    }
+//    private fun toggleGodMode() {
+//        val isEnabled = !sharePreference.isGodMode()
+//        sharePreference.setGodMode(isEnabled)
+//        viewModel.toggleGodMode(isEnabled)
+//        updateGodModeUI(isEnabled)
+//    }
 
-    private fun updateGodModeUI(isEnabled: Boolean) {
-        binding.btnGodMode.setBackgroundResource(
-            if (isEnabled) R.drawable.ic_sw_on else R.drawable.ic_sw_off
-        )
-    }
+//    private fun updateGodModeUI(isEnabled: Boolean) {
+//        binding.btnGodMode.setBackgroundResource(
+//            if (isEnabled) R.drawable.ic_sw_on else R.drawable.ic_sw_off
+//        )
+//    }
 
     override fun dataObservable() {
     }

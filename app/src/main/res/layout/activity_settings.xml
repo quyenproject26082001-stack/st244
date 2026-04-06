@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:clipChildren="false"
-    tools:context="com.cat.cute.callthecat.ui.settings.settings.SettingsActivity">
+    >
 
 
     <TextView
@@ -169,6 +169,7 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_language_selected"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:weightSum="0">
 
