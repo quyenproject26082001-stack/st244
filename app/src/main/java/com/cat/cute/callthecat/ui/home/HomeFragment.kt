@@ -60,13 +60,19 @@ class HomeFragment : BaseFragment<ActivityHomeBinding>() {
 
         val cornerRadius = 20 * resources.displayMetrics.density
 
-        // Clip progressBarContainer (tap bar)
+        // progressBar: PillDrawable bo góc ic_loading ở drawable level — fix Android 8 sharp corners
+        val progressBarSrc = androidx.core.content.ContextCompat.getDrawable(requireContext(), R.drawable.ic_loading)!!
+        binding.progressBar.setImageDrawable(com.cat.cute.callthecat.core.custom.drawable.PillDrawable(progressBarSrc))
+        binding.progressBar.scaleType = android.widget.ImageView.ScaleType.FIT_XY
+
+        // progressBarContainer: clipToOutline để whiteOverlay cũng bị bo góc theo container
         binding.progressBarContainer.outlineProvider = object : ViewOutlineProvider() {
             override fun getOutline(view: View, outline: Outline) {
-                outline.setRoundRect(0, 0, view.width, view.height, cornerRadius)
+                outline.setRoundRect(0, 0, view.width, view.height, view.height / 2f)
             }
         }
         binding.progressBarContainer.clipToOutline = true
+
 
         // Clip coinBarContainer — progressCoins bo góc theo container, stroke foreground vẽ đè lên sau
         binding.coinBarContainer.outlineProvider = object : ViewOutlineProvider() {
